@@ -30,7 +30,6 @@ router.route("/*").all(function (req, res, next){
             console.log(`get으로 들어올경우${res.startTime}${afterUrlSplit}${pathName}${req.url}`);
         }
     }
-
     // 특정 url이면 접속을 허가시킨다.
     if(
         pathName === "/user/signUp" 
@@ -49,6 +48,9 @@ router.route("/*").all(function (req, res, next){
     const token = req.headers.authorization;
 
     if(!token){
+
+        next();
+        return ;
         // 토큰이 없으면 에러입니다.
         response.error(res, {
             errMsg : 'AUTH_TOKEN_FAIL'

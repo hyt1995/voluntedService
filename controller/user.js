@@ -120,6 +120,8 @@ const responseK = async ( req, res ) => {
         // 카카오톡으로 로그인 후 프론트에서 받아오는 토큰 
         const codeSend = req.query.code;
 
+        console.log("로그인 url 이동 후 오게되는 토큰 :::", codeSend);
+
         //필수 정보 있는지 확인
         if( !req.query.code  ) {
             // 없으면 에러
@@ -140,6 +142,8 @@ const responseK = async ( req, res ) => {
         // 새롭게 다시 받아온 토큰
         const emailcode = postAxios.data.access_token; 
 
+        console.log("새롭게 다시 받아오는 토큰 ::: ", emailcode);
+
         // 새롭게 받은 토큰으로 사용자 정보 조회
         const resultAx = await axios.get('https://kapi.kakao.com/v2/user/me',{
             headers: {
@@ -147,6 +151,8 @@ const responseK = async ( req, res ) => {
                 "Content-type" : "application/x-www-form-urlencoded;charset=utf-8"
             }
         });
+
+        console.log("유저가 동의한 정보 조회하기 :::", resultAx.data);
 
         const kakaotalkEmail = await resultAx.data.kakao_account.email;
         const kakaotalkname = await resultAx.data.properties.nickname;
