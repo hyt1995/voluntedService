@@ -157,11 +157,11 @@ const responseK = async ( req, res ) => {
         const kakaotalkEmail = await resultAx.data.kakao_account.email;
         const kakaotalkname = await resultAx.data.properties.nickname;
 
-        // 이전에 가입한 적이 있는지 db에서 확인 
-        const resultUserConfitm = await userModel.confirmUserId( kakaotalkEmail );
+        // // 이전에 가입한 적이 있는지 db에서 확인 
+        // const resultUserConfitm = await userModel.confirmUserId( kakaotalkEmail );
 
-        // 저장된 아이디가 없을 경우 signUp 회원가입창으로 이동
-        if(resultUserConfitm[0].length === 0){
+        // // 저장된 아이디가 없을 경우 signUp 회원가입창으로 이동
+        // if(resultUserConfitm[0].length === 0){
 
             response.success( res, {
                 code:0,
@@ -173,23 +173,24 @@ const responseK = async ( req, res ) => {
             });
 
             return ;
-        }else { // 저장된 아이디가 있는 경우 내 서비스 토큰 새롭게 발급
+        // }else {
+        //      // 저장된 아이디가 있는 경우 내 서비스 토큰 새롭게 발급
 
-            req.params.weatherMerber = true;
+        //     req.params.weatherMerber = true;
 
-            let authToken = auth.authToken.member.set(req);
+        //     let authToken = auth.authToken.member.set(req);
 
-            response.success( res, {
-                code:1,
-                message : "success!!!",
-                data : {
-                    id : resultUserConfitm[0][0],
-                    auth_token : authToken
-                }
-            });
+        //     response.success( res, {
+        //         code:1,
+        //         message : "success!!!",
+        //         data : {
+        //             id : resultUserConfitm[0][0],
+        //             auth_token : authToken
+        //         }
+        //     });
 
-            return ;
-        };
+        //     return ;
+        // };
 
     } catch ( err ){
         console.log("여기서 카카오 에러 확인 ::" , err);
